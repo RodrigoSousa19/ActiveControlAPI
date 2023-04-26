@@ -10,7 +10,5 @@ namespace ActiveControlAPI.Persistence
         public string Name { get; set; }
         [Column("ContractDate")]
         public DateTime ContractDate { get; set; }
-        [Column("CancelDate")]
-        public DateTime? CancelDate { get; set; }
     }
 }

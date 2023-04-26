@@ -19,10 +19,46 @@ namespace ActiveControlAPI.Controllers
             _Receiver = receiver;
         }
 
+        [HttpGet("GetAllCompanyAssets")]
+        public List<CompanyAssetsPersistence> GetAllCompanyAssets()
+        {
+            return _Receiver.GetAllCompanyAssets();
+        }
+
+        [HttpGet("GetAllCostCenter")]
+        public List<CostCenterPersistence> GetAllCostCenter()
+        {
+            return _Receiver.GetAllCostCenter();
+        }
+
         [HttpGet("GetAllEquipmentTypes")]
         public List<EquipmentTypePersistence> GetAllEquipmentTypes()
         {
             return _Receiver.GetAllEquipmentType();
+        }
+
+        [HttpGet("GetAllEquipments")]
+        public List<EquipmentPersistence> GetAllEquipments()
+        {
+            return _Receiver.GetAllEquipments();
+        }
+
+        [HttpGet("GetAllRenters")]
+        public List<RenterPersistence> GetAllRenters()
+        {
+            return _Receiver.GetAllRenters();
+        }
+
+        [HttpGet("GetAllUsers")]
+        public List<UsersPersitence> GetAllUsers()
+        {
+            return _Receiver.GetAllUsers();
+        }
+
+        [HttpGet("GetAllUserTypes")]
+        public List<UserTypePersistence> GetAllUserTypes()
+        {
+            return _Receiver.GetAllUserTypes();
         }
     }
 }

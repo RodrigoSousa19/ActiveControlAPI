@@ -14,7 +14,5 @@ namespace ActiveControlAPI.Persistence
         public long RenterId { get; set; }
         [Column("RentValue")]
         public double RentValue { get; set; }
-        [Column("CancelDate")]
-        public DateTime? CancelDate { get; set; }
     }
 }

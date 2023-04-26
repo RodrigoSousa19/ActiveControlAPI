@@ -5,6 +5,12 @@ namespace ActiveControlAPI.Repository
 {
     public interface IActiveControlRepository
     {
-        public List<EquipmentTypePersistence> GetAllEquipmentType(SqlConnection connection);
+        List<CompanyAssetsPersistence> GetAllCompanyAssets(SqlConnection connection);
+        List<CostCenterPersistence> GetAllCostCenter(SqlConnection connection);
+        List<EquipmentPersistence> GetAllEquipments(SqlConnection connection);
+        List<EquipmentTypePersistence> GetAllEquipmentType(SqlConnection connection);
+        List<RenterPersistence> GetAllRenters(SqlConnection connection);
+        List<UsersPersitence> GetAllUsers(SqlConnection connection);
+        List<UserTypePersistence> GetAllUserTypes(SqlConnection connection);
     }
 }
