@@ -1,4 +1,5 @@
-﻿using ActiveControlAPI.Persistence;
+﻿using ActiveControlAPI.Models;
+using ActiveControlAPI.Persistence;
 using System.Data.SqlClient;
 
 namespace ActiveControlAPI.Repository
@@ -12,5 +13,6 @@ namespace ActiveControlAPI.Repository
         List<RenterPersistence> GetAllRenters(SqlConnection connection);
         List<UsersPersitence> GetAllUsers(SqlConnection connection);
         List<UserTypePersistence> GetAllUserTypes(SqlConnection connection);
+        bool RegisterNewRenter(SqlConnection connection, Renter payload);
     }
 }

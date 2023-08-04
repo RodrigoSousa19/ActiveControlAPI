@@ -1,4 +1,6 @@
-﻿using ActiveControlAPI.Persistence;
+﻿using ActiveControlAPI.Models;
+using ActiveControlAPI.Persistence;
+using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 
 namespace ActiveControlAPI.Receiver
@@ -12,5 +14,6 @@ namespace ActiveControlAPI.Receiver
         List<RenterPersistence> GetAllRenters();
         List<UsersPersitence> GetAllUsers();
         List<UserTypePersistence> GetAllUserTypes();
+        bool RegisterNewRenter(Renter payload, out string message);
     }
 }

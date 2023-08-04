@@ -1,6 +1,8 @@
-﻿using ActiveControlAPI.Persistence;
+﻿using ActiveControlAPI.Models;
+using ActiveControlAPI.Persistence;
 using ActiveControlAPI.Repository;
 using ActiveControlAPI.Uow;
+using Microsoft.AspNetCore.Mvc;
 using System.Data.SqlClient;
 using System.Reflection.Metadata;
 
@@ -157,6 +159,34 @@ namespace ActiveControlAPI.Receiver
                 catch (Exception ex)
                 {
                     throw ex;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public bool RegisterNewRenter(Renter payload, out string message)
+        {
+            message = "";
+            using(SqlConnection connection = _dbFactory.GetConnection())
+            {
+                connection.Open();
+
+                try
+                {
+                    if(_repository.RegisterNewRenter(connection, payload)) ;
+                    {
+                        message = "Fornecedor cadastrado com sucesso";
+                        return true;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    message = $"Erro ao cadastrar novo fornecedor: {ex.Message}";
+                    return false;
                 }
                 finally
                 {

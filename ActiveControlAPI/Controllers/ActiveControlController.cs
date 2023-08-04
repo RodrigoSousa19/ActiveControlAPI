@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using ActiveControlAPI.Receiver;
 using ActiveControlAPI.Persistence;
+using ActiveControlAPI.Uow;
+using ActiveControlAPI.Models;
 
 namespace ActiveControlAPI.Controllers
 {
@@ -20,6 +22,7 @@ namespace ActiveControlAPI.Controllers
         }
 
         [HttpGet("GetAllCompanyAssets")]
+        [AllowCrossOriginRequests]
         public List<CompanyAssetsPersistence> GetAllCompanyAssets()
         {
             return _Receiver.GetAllCompanyAssets();
@@ -59,6 +62,16 @@ namespace ActiveControlAPI.Controllers
         public List<UserTypePersistence> GetAllUserTypes()
         {
             return _Receiver.GetAllUserTypes();
+        }
+
+        [HttpPost("RegisterNewRenter")]
+        public ActionResult RegisterNewRenter(Renter payload)
+        {
+            string message = "";
+            if (_Receiver.RegisterNewRenter(payload, out message))
+                return Ok(message);
+            else
+                return BadRequest(message);
         }
     }
 }

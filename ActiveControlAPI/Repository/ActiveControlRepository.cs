@@ -1,6 +1,9 @@
-﻿using ActiveControlAPI.Persistence;
+﻿using ActiveControlAPI.Models;
+using ActiveControlAPI.Persistence;
 using Dapper;
+using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Xml.Linq;
 
 namespace ActiveControlAPI.Repository
 {
@@ -110,6 +113,26 @@ namespace ActiveControlAPI.Repository
             query += Environment.NewLine + "    UsersType WITH(NOLOCK)";
 
             return connection.Query<UserTypePersistence>(query).ToList();
+        }
+
+        public bool RegisterNewRenter(SqlConnection connection, Renter payload)
+        {
+            string query = "";
+
+            query += Environment.NewLine + "INSERT INTO[dbo].[Renter]";
+            query += Environment.NewLine + "    ([Name]";
+            query += Environment.NewLine + "    ,[Email]";
+            query += Environment.NewLine + "    ,[ContractDate]";
+            query += Environment.NewLine + "    ,[Status])";
+            query += Environment.NewLine + "VALUES";
+            query += Environment.NewLine + "    (@Name";
+            query += Environment.NewLine + "    ,@Email";
+            query += Environment.NewLine + "    ,@ContractDate";
+            query += Environment.NewLine + "    ,@Status)";
+
+            var insertedRows = connection.Execute(query, payload);
+
+            return insertedRows > 0;
         }
     }
 }
