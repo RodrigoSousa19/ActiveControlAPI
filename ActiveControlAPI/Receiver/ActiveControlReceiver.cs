@@ -176,16 +176,54 @@ namespace ActiveControlAPI.Receiver
 
                 try
                 {
-                    if(_repository.RegisterNewRenter(connection, payload)) ;
+                    if (_repository.RegisterNewRenter(connection, payload))
                     {
                         message = "Fornecedor cadastrado com sucesso";
                         return true;
+                    }
+                    else
+                    {
+                        message = "Erro ao cadastrar novo fornecedor";
+                        return false;
                     }
 
                 }
                 catch (Exception ex)
                 {
                     message = $"Erro ao cadastrar novo fornecedor: {ex.Message}";
+                    return false;
+                }
+                finally
+                {
+                    connection.Close();
+                }
+            }
+        }
+
+        public bool RegisterNewEmployee(Employee payload, out string message)
+        {
+            message = "";
+            using (SqlConnection connection = _dbFactory.GetConnection())
+            {
+                connection.Open();
+
+                try
+                {
+                    if (_repository.RegisterNewEmployee(connection, payload)) 
+                    {
+                        message = "Colaborador cadastrado com sucesso";
+                        return true;
+                    }
+                    else
+                    {
+                        message = "Erro ao cadastrar novo colaborador";
+                        return false;
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    message = $"Erro ao cadastrar novo colaborador: {ex.Message}";
                     return false;
                 }
                 finally

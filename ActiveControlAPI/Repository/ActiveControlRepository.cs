@@ -22,7 +22,7 @@ namespace ActiveControlAPI.Repository
             query += Environment.NewLine + "From";
             query += Environment.NewLine + "    CompanyAssets WITH(NOLOCK)";
 
-           return connection.Query<CompanyAssetsPersistence>(query).ToList();
+            return connection.Query<CompanyAssetsPersistence>(query).ToList();
         }
 
         public List<CostCenterPersistence> GetAllCostCenter(SqlConnection connection)
@@ -75,9 +75,8 @@ namespace ActiveControlAPI.Repository
         {
             string query = "";
             query += Environment.NewLine + "SELECT";
-            query += Environment.NewLine + "    Id";
-            query += Environment.NewLine + "    ,Name";
-            query += Environment.NewLine + "    ,ContractDate";
+            query += Environment.NewLine + "     Name";
+            query += Environment.NewLine + "    ,Status";
             query += Environment.NewLine + "FROM";
             query += Environment.NewLine + "    Renter WITH(NOLOCK)";
             query += Environment.NewLine + "WHERE";
@@ -89,15 +88,18 @@ namespace ActiveControlAPI.Repository
         public List<UsersPersitence> GetAllUsers(SqlConnection connection)
         {
             string query = "";
+
             query += Environment.NewLine + "SELECT";
-            query += Environment.NewLine + "    Id";
-            query += Environment.NewLine + "    ,[User]";
-            query += Environment.NewLine + "    ,UserName";
-            query += Environment.NewLine + "    ,UserTypeId";
-            query += Environment.NewLine + "    ,Email";
-            query += Environment.NewLine + "    ,CostCenterId";
+            query += Environment.NewLine + "    [UserName],";
+	        query += Environment.NewLine + "    [Email],";
+	        query += Environment.NewLine + "    [CostCenter],";
+	        query += Environment.NewLine + "    [Description]";
             query += Environment.NewLine + "FROM";
-            query += Environment.NewLine + "    Users WITH(NOLOCK)";
+            query += Environment.NewLine + "    Users AS Us With(nolock)";
+            query += Environment.NewLine + "INNER JOIN";
+            query += Environment.NewLine + "    CostCenter as CS with(nolock)";
+            query += Environment.NewLine + "ON";
+            query += Environment.NewLine + "    Us.CostCenterId = Cs.Id";
 
             return connection.Query<UsersPersitence>(query).ToList();
         }
@@ -129,6 +131,24 @@ namespace ActiveControlAPI.Repository
             query += Environment.NewLine + "    ,@Email";
             query += Environment.NewLine + "    ,@ContractDate";
             query += Environment.NewLine + "    ,@Status)";
+
+            var insertedRows = connection.Execute(query, payload);
+
+            return insertedRows > 0;
+        }
+
+        public bool RegisterNewEmployee(SqlConnection connection, Employee payload)
+        {
+            string query = "";
+
+            query += Environment.NewLine + "INSERT INTO[dbo].[Users]";
+            query += Environment.NewLine + "     ([UserName]";
+            query += Environment.NewLine + "    ,[Email]";
+            query += Environment.NewLine + "    ,[CostCenterId])";
+            query += Environment.NewLine + "VALUES";
+            query += Environment.NewLine + "    (@UserName";
+            query += Environment.NewLine + "    , @Email";
+            query += Environment.NewLine + "    , (SELECT Id from CostCenter WHERE Description = @CostCenter))";
 
             var insertedRows = connection.Execute(query, payload);
 

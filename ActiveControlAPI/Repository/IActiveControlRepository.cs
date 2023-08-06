@@ -14,5 +14,6 @@ namespace ActiveControlAPI.Repository
         List<UsersPersitence> GetAllUsers(SqlConnection connection);
         List<UserTypePersistence> GetAllUserTypes(SqlConnection connection);
         bool RegisterNewRenter(SqlConnection connection, Renter payload);
+        bool RegisterNewEmployee(SqlConnection connection, Employee payload);
     }
 }

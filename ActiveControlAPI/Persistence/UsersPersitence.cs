@@ -4,17 +4,13 @@ namespace ActiveControlAPI.Persistence
 {
     public class UsersPersitence
     {
-        [Column("Id")]
-        public int Id { get; set; }
-        [Column("User")]
-        public string User { get; set; }
         [Column("UserName")]
         public string UserName { get; set; }
-        [Column("UserTypeId")]
-        public int UserTypeId { get; set; }
         [Column("Email")]
         public string Email { get; set; }
-        [Column("CostCenterId")]
-        public int CostCenterid { get; set; }
+        [Column("CostCenter")]
+        public int CostCenter { get; set; }
+        [Column("Description")]
+        public string Description { get; set; }
     }
 }

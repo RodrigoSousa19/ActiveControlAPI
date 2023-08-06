@@ -73,5 +73,14 @@ namespace ActiveControlAPI.Controllers
             else
                 return BadRequest(message);
         }
+        [HttpPost("RegisterNewEmployee")]
+        public ActionResult RegisterNewEmployee(Employee payload)
+        {
+            string message = "";
+            if (_Receiver.RegisterNewEmployee(payload, out message))
+                return Ok(message);
+            else
+                return BadRequest(message);
+        }
     }
 }

@@ -15,5 +15,6 @@ namespace ActiveControlAPI.Receiver
         List<UsersPersitence> GetAllUsers();
         List<UserTypePersistence> GetAllUserTypes();
         bool RegisterNewRenter(Renter payload, out string message);
+        bool RegisterNewEmployee(Employee payload, out string message);
     }
 }
